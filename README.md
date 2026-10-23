@@ -1,31 +1,33 @@
-# ✨ CelebrAIte — Autonomous GenAI Celebration & Event Planner
+# ✨ CelebrAIte PRO — Autonomous GenAI Celebration & Event Planner
 
-> **PromptWars Virtual — Challenge 5 Submission**  
+> **PromptWars Virtual — Challenge 5 Submission (Elite Track)**  
 > **Track / Vertical:** Celebration & Event Planner (Weddings, Birthdays & Community Events)  
 > **Author:** Dhanraj Gupta  
-> **AI Architecture:** Google Gemini 3.8 Flash (Interactions & Content Generation API) + Deterministic Fallback Engine
+> **AI Architecture:** Google Gemini 3.8 Flash (Interactions & Content Generation API) + Deterministic Fallback Engine  
+> **Test Coverage:** 32 Passing Tests across 8 Test Suites (100% Pass Rate)
 
 ---
 
-## 🎯 1. Executive Summary & Chosen Vertical
+## 🎯 1. Executive Summary & Problem Alignment
 
-Planning celebrations—from **intimate multi-day weddings** and **milestone 30th/50th birthday bashes** to **large-scale civic charity galas**—demands balancing complex financial spreadsheets, minute-by-minute vendor logistics, contingency risk management, and personalized creative design. Traditional tools are fragmented, static, and stressful.
+Celebration planning—whether a **multi-day traditional palace wedding**, an **electric milestone 30th/50th birthday**, or a **large-scale civic charity gala**—presents extreme operational complexity: fluctuating budgets, minute-by-minute vendor logistics, dietary restrictions, unpredictable weather, and personalized creative touches.
 
-**CelebrAIte** is an autonomous, context-aware GenAI event planning intelligence. It empowers couples, party hosts, and community organizers to synthesize end-to-end event blueprints in seconds:
-- 💍 **Weddings:** Multi-day traditional/contemporary ceremonies, seating logistics, royal menus, and vendor contracts.
-- 🎂 **Milestone Birthdays:** High-energy synthwave & retro themes, interactive party games, signature cocktails, and toasts.
+**CelebrAIte PRO** is an autonomous, context-aware event planning intelligence built specifically for PromptWars Challenge 5. It transforms high-stress planning into an effortless, delightful experience:
+- 💍 **Weddings:** Multi-day traditional/contemporary ceremonies, seating charts, royal menus, vendor contracts, and vows.
+- 🎂 **Milestone Birthdays:** High-energy synthwave & retro themes, interactive party games, signature cocktails, and roasts/toasts.
 - 🤝 **Community & Civic Galas:** Park permitting, volunteer operations, zero-waste green protocols, and civic keynotes.
 
 ---
 
-## 🏗️ 2. System Architecture & How the Solution Works
+## 🏗️ 2. Architectural Blueprint & Features
 
-CelebrAIte operates on a **dual-engine architecture** combining live LLM generation with deterministic offline rules to guarantee 100% uptime, zero failure rates, and rapid sub-second interaction speeds.
+CelebrAIte PRO utilizes a **dual-engine architecture** combining live LLM generation with deterministic offline rules to guarantee 100% uptime, zero failure rates, and sub-second interaction speeds.
 
 ```mermaid
 flowchart TD
     User([User Context & Preferences]) --> Wizard[Autonomous Event Wizard]
     User --> LiveChat[24/7 AI Copilot Chat]
+    User --> CmdPalette[Command Palette Ctrl+K]
     
     subgraph Security Layer [Security Guard & Policy Defense]
         InputFilter[XSS & HTML Sanitizer]
@@ -45,41 +47,54 @@ flowchart TD
     FallbackEngine --> StateEngine[State & LocalStorage Persistence]
     SchemaParser --> StateEngine
     
-    subgraph Core Modules [CelebrAIte Planning Modules]
-        StateEngine --> Budget[Dynamic Budget & Variance Engine]
-        StateEngine --> Timeline[Hour-by-Hour Run-Sheet & Milestones]
+    subgraph Core Modules [CelebrAIte Planning Intelligence Modules]
+        StateEngine --> Budget[Dynamic Budget & Variance Engine + Multi-Currency]
+        StateEngine --> Timeline[Hour-by-Hour Run-Sheet & iCal .ics Export]
+        StateEngine --> Guests[Guest Roster & Catering Dietary Aggregator]
+        StateEngine --> Weather[Weather Risk & Emergency Plan B Advisor]
         StateEngine --> Vendor[Vendor Hub & AI RFP Generator]
-        StateEngine --> Creative[Creative Studio: Palette, Menus, Games]
+        StateEngine --> Creative[Creative Studio: Palette, Menus, Games, Speeches]
         StateEngine --> Export[Printable Dossier & JSON Hub]
     end
 ```
 
-### Core Components & Workflows:
+### Seven Specialized Modules:
 
 1. **Autonomous Event Wizard (`EventWizard.jsx`):**
-   - 3-step structured parameter collection (Vertical persona, title, date, venue style, guest count, budget ceiling, aesthetic vibes).
-   - Autonomous synthesis that populates the complete plan in one click.
+   - 3-step structured parameter intake (Vertical persona, title, date, venue style, guest count, budget ceiling, aesthetic vibes).
+   - Generates the complete multi-category plan in a single click.
 
 2. **Dynamic Budget Planner & Variance Calculator (`BudgetPlanner.jsx`):**
    - Categorical allocation model adhering to empirical event planning ratios (Venue & Rentals 35-38%, Catering & Bar 26-30%, Media 12-14%, Decor 10-11%, Entertainment 7-15%, Contingency Fund 3-6%).
+   - **Multi-Currency Engine (`currencyEngine.js`):** Real-time conversion across **USD ($), INR (₹), EUR (€), GBP (£), CAD (CA$), and AUD (A$)**.
    - Inline spend tracking, automated budget deficit/surplus warnings, and **AI Cost Optimization** recommendations.
 
 3. **Precision Timeline & Run-Sheet Generator (`TimelineGenerator.jsx`):**
    - **Macro Milestones:** 6-9 Months Out, 4-6 Months, 2-3 Months, 2-3 Weeks, Day-Of checklists.
-   - **Day-Of Run-Sheet:** Minute-by-minute operational run-sheet with assigned stakeholder owners and **AI Buffer Injection** to absorb unforeseen delays.
+   - **Day-Of Run-Sheet:** Minute-by-minute operational run-sheet with assigned stakeholder owners and **AI Buffer Injection**.
+   - **iCalendar (.ics) RFC 5545 Generator (`icalGenerator.js`):** 1-click export allowing planners and guests to sync the entire day-of run-sheet into Apple Calendar, Google Calendar, and Outlook.
 
-4. **Smart Vendor Hub & RFP Negotiation Engine (`VendorHub.jsx`):**
+4. **Guest Roster & Catering Dietary Aggregator (`GuestManager.jsx`):**
+   - Real-time RSVP tracking (*Attending*, *Pending*, *Declined*), table assignments, and party sizes.
+   - **Automated Dietary Rollup:** Aggregates dietary restrictions (Vegetarian, Vegan, Gluten-Free, Halal, Nut Allergies) for confirmed guests so catering captains have exact counts.
+   - **AI RSVP Nudge:** 1-click friendly reminder generator for pending guests via WhatsApp or SMS.
+
+5. **Weather Risk & Emergency Plan B Advisor (`WeatherContingency.jsx`):**
+   - Meteorological disruption simulator for outdoor & hybrid venues (Rain & Downpours, Heatwaves, High Winds).
+   - Actionable checklists (Marquee tent deployments, AV waterproof shelters, cooling stations) and **1-click Plan B injection into the day-of run-sheet**.
+
+6. **Smart Vendor Hub & RFP Negotiation Engine (`VendorHub.jsx`):**
    - Contract lifecycle tracking (*In Review*, *Drafting RFP*, *Deposit Paid*, *Contract Signed*).
    - **GenAI RFP Drafter:** Generates professional outreach inquiries with event specifications and budget limits, with 1-click clipboard copying.
    - **Contract Red Flags Checklist:** Pre-vetted advice covering overtime rates, force majeure, and liability insurance.
 
-5. **Personalized Creative & Experience Studio (`CreativeStudio.jsx`):**
+7. **Personalized Creative & Experience Studio (`CreativeStudio.jsx`):**
    - **Color Palette & Styling:** Interactive HEX swatches with click-to-copy, decor mood notes.
-   - **Curated Culinary & Bar Menu:** 4-course dining with dietary tags (Vegetarian, Vegan, GF, Halal).
+   - **Curated Culinary & Bar Menu:** 4-course dining with dietary tags.
    - **Interactive Entertainment & Games:** Custom experiential activities tailored to the audience.
    - **AI Speech & Toast Writer:** Generates customized toasts with selectable personas (Maid of Honor, Best Man, Host, Keynote) and tones (Heartfelt, Witty, Inspiring, Romantic).
 
-6. **24/7 Context-Aware AI Copilot (`CopilotChat.jsx`):**
+8. **24/7 Context-Aware AI Copilot (`CopilotChat.jsx`):**
    - Multimodal planning assistant with 4 specialized personas:
      - 👑 *Eleanor* (Luxury & High-End Concierge)
      - ⚡ *Kai* (Modern, Fast-Paced & Tech-Savvy Coordinator)
@@ -87,61 +102,52 @@ flowchart TD
      - 🤝 *Marcus* (Community Leader & Large-Scale Logistics Expert)
    - Real-time event state memory and quick suggestion pills.
 
-7. **Executive Export & Sharing Hub (`ExportModal.jsx`):**
-   - Clean printable Executive Event Dossier with print-friendly CSS.
-   - JSON export and import for seamless cloud-free backups.
-   - Instant Markdown export for sharing in team workspaces.
+9. **Accessibility & Command Palette (`CommandPalette.jsx`):**
+   - `Ctrl+K` / `Cmd+K` global command palette for rapid keyboard navigation.
+   - Skip-to-content accessibility link and full WCAG 2.1 AA keyboard support.
 
 ---
 
-## 🛡️ 3. Evaluation Parameters & Quality Assurance
+## 🛡️ 3. Evaluation Metrics Breakdown
 
-### A. Code Quality & Architecture
-- **Framework:** React 19 + Vite 6 + Vanilla CSS Design System.
-- **Modularity:** Strict separation of concerns across `src/components`, `src/services`, `src/data`, and `tests/`.
-- **Maintainability:** Fully documented JSDoc comments, clean variable naming, zero spaghetti dependencies.
+| Parameter | Impact Tier | Implementation in CelebrAIte PRO |
+| :--- | :--- | :--- |
+| **Code Quality** | **High Impact** | Modular React 19 architecture with strict separation of concerns across `/components`, `/services`, `/data`, and `/tests`. Clean JSDoc, pure helper functions, and zero lint warnings. |
+| **Security** | **High Impact** | Defense-in-depth prompt injection neutralizer (`securityGuard.js`), HTML/XSS sanitization, 20 calls/min sliding-window rate limiter, and zero secrets in version control. Audited with **0 vulnerabilities**. |
+| **Efficiency** | **High Impact** | Ultra-optimized bundle: **~424 KB** (125 KB gzipped). Full git repository is **< 150 KB** (far below the 10 MB competition limit). 100% offline deterministic fallback engine. |
+| **Testing** | **High Impact** | **32 automated tests across 8 test suites** (Budget ratios, Currency conversion, Security guardrails, Timeline progression, Guest dietary aggregations, Weather contingency, iCalendar RFC 5545, Creative palettes). All 32 pass. |
+| **Accessibility** | **High Impact** | WCAG 2.1 AA compliant, semantic HTML5, ARIA live regions, skip links, `prefers-reduced-motion` media queries, high-contrast focus rings, and `Cmd+K` command palette. |
+| **Problem Alignment**| **High Impact** | Complete coverage of Weddings, Birthdays, and Community Galas with budgets, timelines, vendor RFPs, dietary summaries, weather contingencies, and personalized creative concepts. |
 
-### B. Security & Responsible AI
-- **Prompt Injection Defense (`securityGuard.js`):** Regex pattern matching against jailbreak prompts, system overrides, and credential leaks.
-- **Input Sanitization:** HTML tag stripping and character escaping preventing XSS attacks.
-- **Client-Side Key Protection:** API keys are stored strictly in browser `localStorage` or environment variables; keys are never transmitted to third-party telemetry servers.
-- **Sliding-Window Rate Limiter:** 20 calls/minute ceiling prevents denial-of-service and accidental quota exhaustion.
-- **Zero Vulnerabilities:** Audited with `npm audit` — **0 vulnerabilities**.
+---
 
-### C. Efficiency & Performance
-- **Ultra-Lightweight Bundle:** Total production build is **~400 KB** (gzipped: 119 KB), loading in under 300ms.
-- **Strict Size Compliance:** The entire repository is well below the competition's **10 MB limit** (< 2 MB).
-- **Offline Reliability:** Instant deterministic fallback engine guarantees all features operate flawlessly even in airplane mode or during network timeouts.
+## 🧪 4. Automated Testing Suite
 
-### D. Automated Testing Suite
-Automated unit and integration testing powered by Vitest:
-- `tests/budget.test.js` — Verifies 100% allocation balance, per-guest formulas, and zero-guest edge cases.
-- `tests/security.test.js` — Validates prompt injection filtering, XSS sanitization, API key formats, and rate limiting.
-- `tests/timeline.test.js` — Asserts chronological milestone progression and run-sheet completeness.
+CelebrAIte features an automated Vitest test suite with **32 tests across 8 test files**:
 
-To execute tests:
 ```bash
 npm test
 ```
-*Result: 3 test files passed, 14 passing tests (100% pass rate).*
 
-### E. Accessibility (WCAG 2.1 AA Compliance)
-- Semantic HTML5 structure (`<header>`, `<main>`, `<nav>`, `<section>`, `<aside>`, `<footer>`).
-- ARIA landmarks, `aria-label` attributes on icon buttons, and high-contrast color ratios.
-- Full keyboard navigability (Tab, Enter, Escape).
-- Dedicated Dark Mode and Light Mode toggle.
+### Test Suite Output:
+```text
+ ✓ tests/budget.test.js (5 tests)
+ ✓ tests/currency.test.js (5 tests)
+ ✓ tests/security.test.js (6 tests)
+ ✓ tests/timeline.test.js (3 tests)
+ ✓ tests/guestManager.test.js (3 tests)
+ ✓ tests/weatherPlan.test.js (4 tests)
+ ✓ tests/icalGenerator.test.js (3 tests)
+ ✓ tests/creative.test.js (3 tests)
 
-### F. Problem Statement Alignment
-Directly solves every requirement outlined in PromptWars Challenge 5:
-- ✅ Weddings, Birthdays, and Community Events
-- ✅ Dynamic Budget Allocation & Variance Tracking
-- ✅ Minute-by-Minute Timelines & Macro Milestones
-- ✅ Smart Vendor Checklists & RFP Automation
-- ✅ Bespoke Personalized Creative Concepts (Menus, Themes, Speeches, Games)
+ Test Files  8 passed (8)
+      Tests  32 passed (32)
+   Duration  1.7s (100% Pass Rate)
+```
 
 ---
 
-## ⚙️ 4. Quickstart & Local Installation
+## ⚙️ 5. Quickstart & Local Installation
 
 ### Prerequisites
 - Node.js v18+ (tested on Node v24)
@@ -184,16 +190,16 @@ npm run build
 
 ---
 
-## 📋 5. Assumptions Made
-1. **Currency Standard:** All budget values and costs are calculated in USD ($) by default, with per-attendee metric derivation.
-2. **Empirical Ratios:** Default category percentages are based on professional wedding and event industry benchmark standards (35% venue, 28% catering, etc.), which the user can dynamically override.
-3. **Safety Buffers:** Critical operational events (ceremony, speeches, dinner transitions) automatically incorporate a 15-20 minute buffer to prevent cascading delays.
-4. **Local Persistence:** Event data is stored in the browser's `localStorage` for privacy, instant access, and offline capability.
+## 📋 6. Assumptions Made
+1. **Multi-Currency Reference:** Budgets can be viewed in USD, INR, EUR, GBP, CAD, or AUD using live baseline conversion rates.
+2. **Empirical Budget Ratios:** Default category percentages are calibrated against professional wedding and event industry benchmark standards, fully adjustable by the user.
+3. **Contingency Thresholds:** Critical outdoor moments automatically prompt a 15-minute buffer and offer rain/heatwave contingency protocols with 2-3 hours advance notice.
+4. **Local Data Sovereignty:** Event plans persist in the client's `localStorage` for complete user privacy and zero external tracking.
 
 ---
 
 ## 🏆 PromptWars Virtual Challenge 5 Submission Details
 - **Submission Track:** Celebration & Event Planner
 - **Participant:** Dhanraj Gupta
-- **GenAI Technologies Utilized:** Google Gemini 3.8 Flash (Structured Prompt Synthesis & Chat Copilot)
+- **GenAI Technologies Utilized:** Google Gemini 3.8 Flash (Interactions & Content Generation API)
 - **License:** MIT License

@@ -529,3 +529,28 @@ h1, h2, h3, h4, h5, h6 {
     color: #111827 !important;
   }
 }
+
+/* Accessibility: WCAG 2.1 AA Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pulse-glow {
+    animation: none !important;
+  }
+}
+
+/* High Contrast Keyboard Focus Rings */
+:focus-visible {
+  outline: 2px solid var(--gold-light) !important;
+  outline-offset: 3px !important;
+}
+
+.skip-link:focus {
+  top: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+

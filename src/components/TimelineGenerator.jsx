@@ -10,7 +10,9 @@ import {
   ChevronUp,
   User,
   Info,
+  Download,
 } from 'lucide-react';
+import { downloadIcsFile } from '../services/icalGenerator';
 
 export default function TimelineGenerator({ event, onUpdateEvent }) {
   const [activeView, setActiveView] = useState('runsheet'); // 'runsheet' or 'milestones'
@@ -114,6 +116,16 @@ export default function TimelineGenerator({ event, onUpdateEvent }) {
           <button onClick={handleInjectBuffers} className="btn btn-secondary btn-sm" title="Add 15-min buffers to major events">
             <Sparkles size={14} style={{ color: 'var(--gold-primary)' }} />
             <span>AI Buffer Polish</span>
+          </button>
+
+          <button
+            onClick={() => downloadIcsFile(event)}
+            className="btn btn-secondary btn-sm"
+            title="Download Apple & Google Calendar (.ics) file"
+            id="btn-export-ical"
+          >
+            <Download size={14} style={{ color: 'var(--purple-light)' }} />
+            <span>Export iCal (.ics)</span>
           </button>
 
           <button onClick={() => setShowAddModal(true)} className="btn btn-primary btn-sm" id="btn-add-schedule-item">

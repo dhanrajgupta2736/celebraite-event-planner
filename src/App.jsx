@@ -6,8 +6,8 @@ import {
   ShieldCheck,
   Sparkles,
   Bot,
-  Heart,
-  Share2,
+  Users,
+  CloudRain,
 } from 'lucide-react';
 import Header from './components/Header';
 import DashboardOverview from './components/DashboardOverview';
@@ -15,10 +15,13 @@ import BudgetPlanner from './components/BudgetPlanner';
 import TimelineGenerator from './components/TimelineGenerator';
 import VendorHub from './components/VendorHub';
 import CreativeStudio from './components/CreativeStudio';
+import GuestManager from './components/GuestManager';
+import WeatherContingency from './components/WeatherContingency';
 import CopilotChat from './components/CopilotChat';
 import EventWizard from './components/EventWizard';
 import SettingsModal from './components/SettingsModal';
 import ExportModal from './components/ExportModal';
+import CommandPalette from './components/CommandPalette';
 import {
   getStoredEvents,
   getActiveEvent,
@@ -29,20 +32,27 @@ import {
 export default function App() {
   const [events, setEvents] = useState(getStoredEvents());
   const [activeEvent, setActiveEvent] = useState(getActiveEvent());
-  const [activeTab, setActiveTab] = useState('overview'); // overview, budget, timeline, vendors, creative
+  const [activeTab, setActiveTab] = useState('overview'); // overview, budget, timeline, guests, weather, vendors, creative
   const [theme, setTheme] = useState(localStorage.getItem('celebraite_theme') || 'dark');
+  const [currency, setCurrency] = useState(localStorage.getItem('celebraite_currency') || 'USD');
 
   // Modals state
   const [isWizardOpen, setIsWizardOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isExportOpen, setIsExportOpen] = useState(false);
   const [isCopilotOpen, setIsCopilotOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   // Sync theme
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('celebraite_theme', theme);
   }, [theme]);
+
+  // Sync currency
+  useEffect(() => {
+    localStorage.setItem('celebraite_currency', currency);
+  }, [currency]);
 
   // Handle Event selection
   const handleSelectEvent = (id) => {
@@ -82,10 +92,13 @@ export default function App() {
         onOpenExport={() => setIsExportOpen(true)}
         theme={theme}
         onToggleTheme={handleToggleTheme}
+        currency={currency}
+        onSelectCurrency={setCurrency}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
       {/* Main Workspace */}
-      <main className="main-content" role="main">
+      <main className="main-content" id="main-content" role="main">
         {/* Navigation Tabs Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
           <nav className="tab-navigation" aria-label="Celebration Modules">
@@ -114,6 +127,24 @@ export default function App() {
             >
               <Clock size={16} />
               <span>Timeline & Run-Sheet</span>
+            </button>
+
+            <button
+              id="tab-guests"
+              onClick={() => setActiveTab('guests')}
+              className={`tab-btn ${activeTab === 'guests' ? 'active' : ''}`}
+            >
+              <Users size={16} />
+              <span>Guest Roster & RSVPs</span>
+            </button>
+
+            <button
+              id="tab-weather"
+              onClick={() => setActiveTab('weather')}
+              className={`tab-btn ${activeTab === 'weather' ? 'active' : ''}`}
+            >
+              <CloudRain size={16} />
+              <span>Weather Plan B</span>
             </button>
 
             <button
@@ -163,11 +194,26 @@ export default function App() {
             event={activeEvent}
             onUpdateEvent={handleUpdateEvent}
             onOpenCopilot={() => setIsCopilotOpen(true)}
+            currency={currency}
           />
         )}
 
         {activeTab === 'timeline' && (
           <TimelineGenerator
+            event={activeEvent}
+            onUpdateEvent={handleUpdateEvent}
+          />
+        )}
+
+        {activeTab === 'guests' && (
+          <GuestManager
+            event={activeEvent}
+            onUpdateEvent={handleUpdateEvent}
+          />
+        )}
+
+        {activeTab === 'weather' && (
+          <WeatherContingency
             event={activeEvent}
             onUpdateEvent={handleUpdateEvent}
           />
@@ -242,7 +288,20 @@ export default function App() {
         }}
       />
 
-      {/* Footer */}
+      {/* Command Palette Modal */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onNavigateTab={(tab) => setActiveTab(tab)}
+        onOpenCopilot={() => setIsCopilotOpen(true)}
+        onOpenWizard={() => setIsWizardOpen(true)}
+        onOpenExport={() => setIsExportOpen(true)}
+        onOpenSettings={() => setIsSettingsOpen(true)}
+        onToggleTheme={handleToggleTheme}
+        theme={theme}
+      />
+
+      {/* Accessible Footer */}
       <footer
         style={{
           borderTop: '1px solid var(--border-subtle)',
@@ -255,10 +314,10 @@ export default function App() {
       >
         <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
           <div>
-            <strong>CelebrAIte</strong> — PromptWars Virtual Challenge 5 (Celebration & Event Planner Track)
+            <strong>CelebrAIte PRO</strong> — PromptWars Virtual Challenge 5 (Celebration & Event Planner Track)
           </div>
           <div>
-            Built with React 19, Google Gemini 3.8 Flash & Deterministic Fallback Architecture
+            Built with React 19, Google Gemini 3.8 Flash, Multi-Currency & WCAG 2.1 AA Accessibility
           </div>
         </div>
       </footer>

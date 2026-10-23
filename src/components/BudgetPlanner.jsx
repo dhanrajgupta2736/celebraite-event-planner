@@ -12,8 +12,9 @@ import {
   RotateCcw,
 } from 'lucide-react';
 import { calculateBudgetBreakdown } from '../services/fallbackEngine';
+import { formatCurrency } from '../services/currencyEngine';
 
-export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot }) {
+export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot, currency = 'USD' }) {
   const [budgetItems, setBudgetItems] = useState(event.budgetItems || []);
   const [totalBudget, setTotalBudget] = useState(event.budget || 15000);
   const [guestCount, setGuestCount] = useState(event.guestCount || 100);
@@ -198,10 +199,10 @@ export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot }) {
             Total Budget Target
           </span>
           <div style={{ fontSize: '1.85rem', fontWeight: 800, fontFamily: 'var(--font-display)', margin: '0.35rem 0' }}>
-            ${totalBudget.toLocaleString()}
+            {formatCurrency(totalBudget, currency)}
           </div>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-            Allocated across {budgetItems.length} categories (${totalAllocated.toLocaleString()})
+            Allocated across {budgetItems.length} categories ({formatCurrency(totalAllocated, currency)})
           </div>
         </div>
 
@@ -218,7 +219,7 @@ export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot }) {
               color: totalSpent > totalBudget ? 'var(--danger)' : 'var(--gold-primary)',
             }}
           >
-            ${totalSpent.toLocaleString()}
+            {formatCurrency(totalSpent, currency)}
           </div>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
             {Math.round((totalSpent / Math.max(1, totalBudget)) * 100)}% of total budget utilized
@@ -238,7 +239,7 @@ export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot }) {
               color: remainingBudget >= 0 ? 'var(--success)' : 'var(--danger)',
             }}
           >
-            ${remainingBudget.toLocaleString()}
+            {formatCurrency(remainingBudget, currency)}
           </div>
           <div style={{ fontSize: '0.82rem', color: remainingBudget >= 0 ? 'var(--success)' : 'var(--danger)' }}>
             {remainingBudget >= 0 ? 'Surplus buffer available' : 'Budget deficit detected'}
