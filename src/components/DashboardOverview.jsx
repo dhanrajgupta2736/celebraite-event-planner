@@ -14,6 +14,13 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
+/**
+ * Executive Dashboard Overview Component
+ * Renders high-level KPIs, countdown telemetry, financial summaries,
+ * operational checklists, and dynamic milestone progress bars.
+ * @param {{ event: object, onNavigateTab: (tab: string) => void, onOpenCopilot: () => void }} props
+ * @returns {React.ReactElement | null}
+ */
 export default function DashboardOverview({ event, onNavigateTab, onOpenCopilot }) {
   if (!event) return null;
 

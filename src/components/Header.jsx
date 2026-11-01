@@ -14,6 +14,13 @@ import {
 import { hasLiveApiKey } from '../services/geminiService';
 import { CURRENCIES } from '../services/currencyEngine';
 
+/**
+ * Top Application Header Component
+ * Contains branding, active plan switcher, global currency selector,
+ * theme toggle, command palette shortcut, and modal triggers.
+ * @param {object} props
+ * @returns {React.ReactElement}
+ */
 export default function Header({
   events,
   activeEvent,

@@ -8,6 +8,13 @@ import {
   Check,
 } from 'lucide-react';
 
+/**
+ * Export & Backup Modal Component
+ * Generates printable executive dossiers, markdown summaries,
+ * and JSON event backups with bidirectional import capability.
+ * @param {{ event: object, isOpen: boolean, onClose: () => void, onImportEvent: (event: object) => void }} props
+ * @returns {React.ReactElement | null}
+ */
 export default function ExportModal({ event, isOpen, onClose, onImportEvent }) {
   if (!isOpen || !event) return null;
 

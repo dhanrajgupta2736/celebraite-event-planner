@@ -11,6 +11,13 @@ import {
 } from 'lucide-react';
 import { generateCreativeSuite } from '../services/fallbackEngine';
 
+/**
+ * Creative & Experience Studio Component
+ * Curates harmonious color palettes, multi-course dining menus, interactive party games,
+ * and drafts personalized celebration toasts and keynote speeches.
+ * @param {{ event: object, _onUpdateEvent?: (updated: object) => void }} props
+ * @returns {React.ReactElement}
+ */
 export default function CreativeStudio({ event, _onUpdateEvent }) {
   const creative = event.theme
     ? {

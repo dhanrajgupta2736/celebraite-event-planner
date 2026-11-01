@@ -20,3 +20,4 @@ CelebrAIte PRO implements rigorous security standards:
 ## Reporting a Vulnerability
 
 If you discover any security issue or vulnerability in CelebrAIte PRO, please report it via GitHub Security Advisories or open an issue labeled `security`. Reports are reviewed within 24 hours.
+

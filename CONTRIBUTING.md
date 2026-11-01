@@ -40,3 +40,4 @@ Thank you for your interest in contributing to CelebrAIte PRO!
 - Zero linting warnings (`npx oxlint`).
 - WCAG 2.1 AA accessibility compliance.
 - Complete JSDoc annotations on public functions.
+

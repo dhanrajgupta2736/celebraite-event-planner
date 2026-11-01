@@ -32,3 +32,4 @@ jobs:
 
       - name: Build Production Assets
         run: npm run build
+

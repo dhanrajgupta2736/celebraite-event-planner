@@ -29,6 +29,13 @@ import {
   updateEvent,
 } from './services/storageService';
 
+/**
+ * CelebrAIte PRO Root Application Component
+ * Orchestrates event state hydration, responsive navigation tabs,
+ * multi-currency context, themes, and global modal overlays.
+ * @component
+ * @returns {React.ReactElement}
+ */
 export default function App() {
   const [events, setEvents] = useState(getStoredEvents());
   const [activeEvent, setActiveEvent] = useState(getActiveEvent());

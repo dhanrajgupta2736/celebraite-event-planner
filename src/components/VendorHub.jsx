@@ -10,7 +10,14 @@ import {
   Trash2,
 } from 'lucide-react';
 import { generateVendorRfp } from '../services/geminiService';
+import { sanitizeInput } from '../services/securityGuard';
 
+/**
+ * Vendor Hub Component
+ * Coordinates vendor procurement statuses, contract milestones,
+ * red-flag negotiation checklists, and automated GenAI RFP drafts.
+ * @param {{ event: object, onUpdateEvent: (updated: object) => void }} props
+ */
 export default function VendorHub({ event, onUpdateEvent }) {
   const [vendors, setVendors] = useState(event.vendors || []);
   const [selectedRfpVendor, setSelectedRfpVendor] = useState(null);
@@ -74,13 +81,18 @@ export default function VendorHub({ event, onUpdateEvent }) {
   // Add new vendor
   const handleAddVendor = (e) => {
     e.preventDefault();
-    if (!newVendor.name.trim()) return;
+    const cleanName = sanitizeInput(newVendor.name);
+    if (!cleanName) return;
 
     const created = {
       id: `v-${Date.now()}`,
-      ...newVendor,
+      category: newVendor.category || 'Catering',
+      name: cleanName,
+      status: newVendor.status || 'In Review',
+      contact: sanitizeInput(newVendor.contact),
       budgetAllocated: Number(newVendor.budgetAllocated) || 1000,
       actualCost: Number(newVendor.actualCost) || 0,
+      notes: sanitizeInput(newVendor.notes),
     };
 
     const updated = [...vendors, created];

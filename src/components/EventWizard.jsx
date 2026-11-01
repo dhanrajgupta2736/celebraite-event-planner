@@ -8,7 +8,14 @@ import {
 } from 'lucide-react';
 import { generateFullEventPlan } from '../services/geminiService';
 import { createNewEvent } from '../services/storageService';
+import { sanitizeInput } from '../services/securityGuard';
 
+/**
+ * Event Wizard Component
+ * Guides the user through a 3-step structured parameter intake
+ * to autonomously synthesize a comprehensive celebration plan.
+ * @param {{ isOpen: boolean, onClose: () => void, onEventCreated: (event: object) => void }} props
+ */
 export default function EventWizard({ isOpen, onClose, onEventCreated }) {
   if (!isOpen) return null;
 
@@ -66,17 +73,21 @@ export default function EventWizard({ isOpen, onClose, onEventCreated }) {
     setIsGenerating(true);
 
     try {
-      const generated = await generateFullEventPlan(formData);
-
-      const createdEvent = createNewEvent({
-        title: formData.title || `${formData.eventType.toUpperCase()} Celebration`,
+      const sanitizedData = {
+        title: sanitizeInput(formData.title) || `${formData.eventType.toUpperCase()} Celebration`,
         eventType: formData.eventType,
         date: formData.date,
-        location: formData.location || 'Selected Venue Grounds',
+        location: sanitizeInput(formData.location) || 'Selected Venue Grounds',
         guestCount: Number(formData.guestCount) || 100,
         budget: Number(formData.budget) || 15000,
-        vibes: formData.vibes,
-        notes: formData.notes,
+        vibes: sanitizeInput(formData.vibes),
+        notes: sanitizeInput(formData.notes),
+      };
+
+      const generated = await generateFullEventPlan(sanitizedData);
+
+      const createdEvent = createNewEvent({
+        ...sanitizedData,
         budgetItems: generated.budgetItems,
         macroTimeline: generated.macroTimeline,
         dayOfRunSheet: generated.dayOfRunSheet,

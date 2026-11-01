@@ -8,7 +8,14 @@ import {
 } from 'lucide-react';
 import { calculateBudgetBreakdown } from '../services/fallbackEngine';
 import { formatCurrency } from '../services/currencyEngine';
+import { sanitizeInput } from '../services/securityGuard';
 
+/**
+ * Budget Planner Component
+ * Formulates empirical budget allocations, tracks spending variances,
+ * provides live multi-currency rendering, and applies AI cost optimization.
+ * @param {{ event: object, onUpdateEvent: (updated: object) => void, _onOpenCopilot?: () => void, currency?: string }} props
+ */
 export default function BudgetPlanner({ event, onUpdateEvent, _onOpenCopilot, currency = 'USD' }) {
   const [budgetItems, setBudgetItems] = useState(event.budgetItems || []);
   const totalBudget = event.budget || 15000;
@@ -72,7 +79,8 @@ export default function BudgetPlanner({ event, onUpdateEvent, _onOpenCopilot, cu
   // Add new budget item
   const handleAddItem = (e) => {
     e.preventDefault();
-    if (!newItem.category.trim()) return;
+    const cleanCategory = sanitizeInput(newItem.category);
+    if (!cleanCategory) return;
 
     const allocated = Number(newItem.allocatedAmount) || 500;
     const spent = Number(newItem.actualSpent) || 0;
@@ -81,12 +89,12 @@ export default function BudgetPlanner({ event, onUpdateEvent, _onOpenCopilot, cu
 
     const created = {
       id: `b-custom-${Date.now()}`,
-      category: newItem.category.trim(),
+      category: cleanCategory,
       allocatedAmount: allocated,
       actualSpent: spent,
       percentage,
       priority: newItem.priority,
-      description: newItem.description || '',
+      description: sanitizeInput(newItem.description) || '',
       perGuest,
       status: spent > allocated ? 'Over Budget' : 'On Track',
     };

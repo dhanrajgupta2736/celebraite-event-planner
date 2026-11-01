@@ -9,7 +9,14 @@ import {
   Download,
 } from 'lucide-react';
 import { downloadIcsFile } from '../services/icalGenerator';
+import { sanitizeInput } from '../services/securityGuard';
 
+/**
+ * Timeline Generator Component
+ * Manages macro milestone checklists, day-of minute-by-minute run-sheets,
+ * AI logistical buffer injection, and RFC 5545 iCalendar (.ics) exports.
+ * @param {{ event: object, onUpdateEvent: (updated: object) => void }} props
+ */
 export default function TimelineGenerator({ event, onUpdateEvent }) {
   const [activeView, setActiveView] = useState('runsheet'); // 'runsheet' or 'milestones'
   const [macroTimeline, setMacroTimeline] = useState(event.macroTimeline || []);
@@ -37,13 +44,14 @@ export default function TimelineGenerator({ event, onUpdateEvent }) {
   // Add new run-sheet item
   const handleAddRunSheetItem = (e) => {
     e.preventDefault();
-    if (!newItem.title.trim()) return;
+    const cleanTitle = sanitizeInput(newItem.title);
+    if (!cleanTitle) return;
 
     const created = {
-      time: newItem.time.trim(),
-      title: newItem.title.trim(),
-      owner: newItem.owner.trim() || 'Coordinator',
-      note: newItem.note.trim() || '',
+      time: sanitizeInput(newItem.time) || '12:00 PM',
+      title: cleanTitle,
+      owner: sanitizeInput(newItem.owner) || 'Coordinator',
+      note: sanitizeInput(newItem.note) || '',
     };
 
     const updated = [...dayOfRunSheet, created];

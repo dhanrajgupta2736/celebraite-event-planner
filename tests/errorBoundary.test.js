@@ -10,3 +10,4 @@ describe('Production ErrorBoundary Component', () => {
     expect(state.error).toBe(error);
   });
 });
+

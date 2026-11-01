@@ -11,7 +11,13 @@ import {
   Check,
   Trash2,
 } from 'lucide-react';
+import { sanitizeInput } from '../services/securityGuard';
 
+/**
+ * Guest Manager Component
+ * Tracks RSVP headcounts, table seating arrangements, and dietary restriction rollups.
+ * @param {{ event: object, onUpdateEvent: (updated: object) => void }} props
+ */
 export default function GuestManager({ event, onUpdateEvent }) {
   const [guests, setGuests] = useState(
     event.guests || [
@@ -69,12 +75,17 @@ export default function GuestManager({ event, onUpdateEvent }) {
 
   const handleAddGuest = (e) => {
     e.preventDefault();
-    if (!newGuest.name.trim()) return;
+    const cleanName = sanitizeInput(newGuest.name);
+    if (!cleanName) return;
 
     const created = {
       id: `g-${Date.now()}`,
-      ...newGuest,
+      name: cleanName,
+      status: newGuest.status,
       partySize: Number(newGuest.partySize) || 1,
+      table: sanitizeInput(newGuest.table) || 'Table 1',
+      dietary: sanitizeInput(newGuest.dietary) || 'None',
+      email: sanitizeInput(newGuest.email),
     };
 
     const updated = [...guests, created];

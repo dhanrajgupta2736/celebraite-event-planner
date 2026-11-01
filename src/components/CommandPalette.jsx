@@ -15,6 +15,12 @@ import {
   Bot,
 } from 'lucide-react';
 
+/**
+ * Global Keyboard Command Palette Component (Ctrl+K / Cmd+K)
+ * Enables rapid keyboard-driven navigation, modal triggering, and theme switching.
+ * @param {object} props
+ * @returns {React.ReactElement | null}
+ */
 export default function CommandPalette({
   isOpen,
   onClose,

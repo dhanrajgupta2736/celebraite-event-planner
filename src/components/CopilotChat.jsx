@@ -16,6 +16,13 @@ import {
 } from 'lucide-react';
 import { askPlannerCopilot } from '../services/geminiService';
 
+/**
+ * 24/7 Context-Aware Event Copilot Chat Component
+ * Provides interactive advisory with 4 specialized planner personas
+ * (Eleanor, Kai, Maya, Marcus) backed by Gemini 3.8 Flash & offline fallback.
+ * @param {{ event: object, isOpen: boolean, onClose: () => void }} props
+ * @returns {React.ReactElement | null}
+ */
 export default function CopilotChat({ event, isOpen, onClose }) {
   if (!isOpen) return null;
 

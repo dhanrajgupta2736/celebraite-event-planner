@@ -13,6 +13,12 @@ import {
 import { getActiveApiKey, setActiveApiKey } from '../services/geminiService';
 import { resetToSampleEvents } from '../services/storageService';
 
+/**
+ * Settings & Configuration Modal Component
+ * Manages Google Gemini API key persistence, connection diagnostics, and state reset.
+ * @param {{ isOpen: boolean, onClose: () => void, onResetEvents: () => void }} props
+ * @returns {React.ReactElement | null}
+ */
 export default function SettingsModal({ isOpen, onClose, onResetEvents }) {
   if (!isOpen) return null;
 

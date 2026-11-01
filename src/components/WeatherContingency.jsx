@@ -8,6 +8,12 @@ import {
 } from 'lucide-react';
 import { generateContingencyPlan } from '../services/weatherContingencyEngine';
 
+/**
+ * Weather Risk & Emergency Contingency Advisor Component
+ * Simulates weather anomalies (rain, heat, wind) and injects Plan B shifts into run-sheets.
+ * @param {{ event: object, onUpdateEvent: (updated: object) => void }} props
+ * @returns {React.ReactElement}
+ */
 export default function WeatherContingency({ event, onUpdateEvent }) {
   const [selectedWeather, setSelectedWeather] = useState('RAIN');
   const [applied, setApplied] = useState(false);
