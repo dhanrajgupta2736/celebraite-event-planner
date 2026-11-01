@@ -53,3 +53,4 @@ export const UI_THEMES = {
   DARK: 'dark',
   LIGHT: 'light',
 };
+
