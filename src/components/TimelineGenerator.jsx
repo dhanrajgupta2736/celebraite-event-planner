@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 import {
   Clock,
   CheckCircle2,
-  Calendar,
-  AlertTriangle,
   PlusCircle,
   Sparkles,
-  ChevronDown,
-  ChevronUp,
   User,
   Info,
   Download,

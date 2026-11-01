@@ -7,8 +7,6 @@ import {
   PlusCircle,
   Sparkles,
   AlertOctagon,
-  FileText,
-  Phone,
   Trash2,
 } from 'lucide-react';
 import { generateVendorRfp } from '../services/geminiService';

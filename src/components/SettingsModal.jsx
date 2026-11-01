@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Settings,
-  Key,
   ShieldCheck,
   Cpu,
   CheckCircle2,

@@ -6,7 +6,6 @@ import {
   FileText,
   Copy,
   Check,
-  Sparkles,
 } from 'lucide-react';
 
 export default function ExportModal({ event, isOpen, onClose, onImportEvent }) {
@@ -47,7 +46,7 @@ export default function ExportModal({ event, isOpen, onClose, onImportEvent }) {
         } else {
           alert('Invalid event JSON file structure.');
         }
-      } catch (err) {
+      } catch {
         alert('Could not parse JSON file.');
       }
     };

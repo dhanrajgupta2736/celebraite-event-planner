@@ -101,9 +101,12 @@ export default function App() {
       <main className="main-content" id="main-content" role="main">
         {/* Navigation Tabs Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
-          <nav className="tab-navigation" aria-label="Celebration Modules">
+          <nav className="tab-navigation" role="tablist" aria-label="Celebration Modules">
             <button
               id="tab-overview"
+              role="tab"
+              aria-selected={activeTab === 'overview'}
+              aria-controls="tabpanel-overview"
               onClick={() => setActiveTab('overview')}
               className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
             >
@@ -113,6 +116,9 @@ export default function App() {
 
             <button
               id="tab-budget"
+              role="tab"
+              aria-selected={activeTab === 'budget'}
+              aria-controls="tabpanel-budget"
               onClick={() => setActiveTab('budget')}
               className={`tab-btn ${activeTab === 'budget' ? 'active' : ''}`}
             >
@@ -122,6 +128,9 @@ export default function App() {
 
             <button
               id="tab-timeline"
+              role="tab"
+              aria-selected={activeTab === 'timeline'}
+              aria-controls="tabpanel-timeline"
               onClick={() => setActiveTab('timeline')}
               className={`tab-btn ${activeTab === 'timeline' ? 'active' : ''}`}
             >
@@ -131,6 +140,9 @@ export default function App() {
 
             <button
               id="tab-guests"
+              role="tab"
+              aria-selected={activeTab === 'guests'}
+              aria-controls="tabpanel-guests"
               onClick={() => setActiveTab('guests')}
               className={`tab-btn ${activeTab === 'guests' ? 'active' : ''}`}
             >
@@ -140,6 +152,9 @@ export default function App() {
 
             <button
               id="tab-weather"
+              role="tab"
+              aria-selected={activeTab === 'weather'}
+              aria-controls="tabpanel-weather"
               onClick={() => setActiveTab('weather')}
               className={`tab-btn ${activeTab === 'weather' ? 'active' : ''}`}
             >
@@ -149,6 +164,9 @@ export default function App() {
 
             <button
               id="tab-vendors"
+              role="tab"
+              aria-selected={activeTab === 'vendors'}
+              aria-controls="tabpanel-vendors"
               onClick={() => setActiveTab('vendors')}
               className={`tab-btn ${activeTab === 'vendors' ? 'active' : ''}`}
             >
@@ -158,6 +176,9 @@ export default function App() {
 
             <button
               id="tab-creative"
+              role="tab"
+              aria-selected={activeTab === 'creative'}
+              aria-controls="tabpanel-creative"
               onClick={() => setActiveTab('creative')}
               className={`tab-btn ${activeTab === 'creative' ? 'active' : ''}`}
             >
@@ -173,6 +194,7 @@ export default function App() {
               onClick={() => setIsCopilotOpen(true)}
               className="btn btn-accent btn-sm"
               title="Open AI Event Copilot"
+              aria-label="Open AI Event Copilot"
             >
               <Bot size={15} />
               <span>AI Copilot (24/7)</span>
@@ -180,58 +202,60 @@ export default function App() {
           )}
         </div>
 
-        {/* Tab Views */}
-        {activeTab === 'overview' && (
-          <DashboardOverview
-            event={activeEvent}
-            onNavigateTab={(tab) => setActiveTab(tab)}
-            onOpenCopilot={() => setIsCopilotOpen(true)}
-          />
-        )}
+        {/* Tab Views Panel */}
+        <div role="tabpanel" id={`tabpanel-${activeTab}`} aria-labelledby={`tab-${activeTab}`}>
+          {activeTab === 'overview' && (
+            <DashboardOverview
+              event={activeEvent}
+              onNavigateTab={(tab) => setActiveTab(tab)}
+              onOpenCopilot={() => setIsCopilotOpen(true)}
+            />
+          )}
 
-        {activeTab === 'budget' && (
-          <BudgetPlanner
-            event={activeEvent}
-            onUpdateEvent={handleUpdateEvent}
-            onOpenCopilot={() => setIsCopilotOpen(true)}
-            currency={currency}
-          />
-        )}
+          {activeTab === 'budget' && (
+            <BudgetPlanner
+              event={activeEvent}
+              onUpdateEvent={handleUpdateEvent}
+              onOpenCopilot={() => setIsCopilotOpen(true)}
+              currency={currency}
+            />
+          )}
 
-        {activeTab === 'timeline' && (
-          <TimelineGenerator
-            event={activeEvent}
-            onUpdateEvent={handleUpdateEvent}
-          />
-        )}
+          {activeTab === 'timeline' && (
+            <TimelineGenerator
+              event={activeEvent}
+              onUpdateEvent={handleUpdateEvent}
+            />
+          )}
 
-        {activeTab === 'guests' && (
-          <GuestManager
-            event={activeEvent}
-            onUpdateEvent={handleUpdateEvent}
-          />
-        )}
+          {activeTab === 'guests' && (
+            <GuestManager
+              event={activeEvent}
+              onUpdateEvent={handleUpdateEvent}
+            />
+          )}
 
-        {activeTab === 'weather' && (
-          <WeatherContingency
-            event={activeEvent}
-            onUpdateEvent={handleUpdateEvent}
-          />
-        )}
+          {activeTab === 'weather' && (
+            <WeatherContingency
+              event={activeEvent}
+              onUpdateEvent={handleUpdateEvent}
+            />
+          )}
 
-        {activeTab === 'vendors' && (
-          <VendorHub
-            event={activeEvent}
-            onUpdateEvent={handleUpdateEvent}
-          />
-        )}
+          {activeTab === 'vendors' && (
+            <VendorHub
+              event={activeEvent}
+              onUpdateEvent={handleUpdateEvent}
+            />
+          )}
 
-        {activeTab === 'creative' && (
-          <CreativeStudio
-            event={activeEvent}
-            onUpdateEvent={handleUpdateEvent}
-          />
-        )}
+          {activeTab === 'creative' && (
+            <CreativeStudio
+              event={activeEvent}
+              onUpdateEvent={handleUpdateEvent}
+            />
+          )}
+        </div>
       </main>
 
       {/* Floating Copilot Trigger Button (When closed) */}

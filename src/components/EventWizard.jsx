@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import {
   Sparkles,
-  Calendar,
-  DollarSign,
-  Users,
-  MapPin,
   Heart,
   PartyPopper,
   Building2,
-  Sliders,
   CheckCircle2,
 } from 'lucide-react';
 import { generateFullEventPlan } from '../services/geminiService';

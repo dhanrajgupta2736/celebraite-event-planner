@@ -68,9 +68,7 @@ export function calculateBudgetBreakdown(totalBudget, eventType, guestCount = 10
 /**
  * Generates macro milestones leading up to the celebration
  */
-export function generateMacroTimeline(eventType, eventDate) {
-  const targetDate = eventDate ? new Date(eventDate) : new Date(Date.now() + 180 * 86400000);
-  
+export function generateMacroTimeline(eventType, _eventDate) {
   if (eventType === 'wedding') {
     return [
       { id: 'm1', phase: '6-9 Months Out', title: 'Venue Booking & Vision Lock', completed: true, tasks: ['Secure ceremony & reception venue', 'Establish primary budget ceiling', 'Hire lead photographer & videographer'] },
@@ -147,7 +145,7 @@ export function generateDayOfRunSheet(eventType) {
 /**
  * Generates tailored vendor checklist with RFP generator templates
  */
-export function generateVendorChecklist(eventType) {
+export function generateVendorChecklist(_eventType) {
   return [
     {
       id: 'v1',
@@ -207,7 +205,7 @@ export function generateCreativeSuite(eventType, themeHint = 'Modern Elegance') 
   if (eventType === 'wedding') {
     return {
       theme: {
-        title: 'Golden Hour Tuscan Romance',
+        title: themeHint && themeHint !== 'Modern Elegance' ? themeHint : 'Golden Hour Tuscan Romance',
         tagline: 'Sun-drenched terracotta warmth meets timeless ivory and eucalyptus greenery',
         palette: [
           { name: 'Champagne Gold', hex: '#D4AF37', role: 'Accent & Metallic' },

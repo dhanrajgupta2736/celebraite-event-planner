@@ -41,7 +41,7 @@ export function formatCurrency(amountInUsd, currencyCode = 'USD') {
       currency: curr.code,
       maximumFractionDigits: 0,
     }).format(converted);
-  } catch (e) {
+  } catch {
     return `${curr.symbol}${converted.toLocaleString()}`;
   }
 }

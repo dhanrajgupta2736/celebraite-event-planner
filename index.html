@@ -9,6 +9,7 @@
     <meta name="keywords" content="AI event planner, wedding planner AI, birthday party organizer, community event coordinator, GenAI budgeting, automated run-sheet, vendor checklist" />
     <meta name="theme-color" content="#0d1117" />
     <meta name="author" content="Dhanraj Gupta - PromptWars Virtual Challenge 5" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://generativelanguage.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'self';" />
 
     <!-- Google Fonts: Playfair Display (Luxury Serif) & Outfit / Plus Jakarta Sans (Modern Clean UI) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,6 +17,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <!-- WCAG 2.1 AA Keyboard Accessibility Skip Link -->
+    <a
+      href="#main-content"
+      class="skip-to-content"
+      style="position: absolute; left: -9999px; z-index: 9999; padding: 0.75rem 1.25rem; background: #D4AF37; color: #000; font-weight: 700; text-decoration: none; border-radius: 4px;"
+      onfocus="this.style.left='1rem'; this.style.top='1rem';"
+      onblur="this.style.left='-9999px';"
+    >
+      Skip to main content
+    </a>
+    <noscript>
+      <div style="padding: 2rem; text-align: center; color: #FFF; background: #0B0E14;">
+        <h1>JavaScript Required</h1>
+        <p>CelebrAIte PRO requires JavaScript enabled in your browser to orchestrate autonomous event planning intelligence.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

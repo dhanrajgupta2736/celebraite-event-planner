@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { generateCreativeSuite } from '../services/fallbackEngine';
 
-export default function CreativeStudio({ event, onUpdateEvent }) {
+export default function CreativeStudio({ event, _onUpdateEvent }) {
   const creative = event.theme
     ? {
         theme: event.theme,

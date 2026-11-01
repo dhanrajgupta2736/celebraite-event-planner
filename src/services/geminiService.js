@@ -113,14 +113,14 @@ function extractJsonFromResponse(text) {
   const target = jsonMatch ? jsonMatch[1] : text;
   try {
     return JSON.parse(target);
-  } catch (err) {
+  } catch {
     // Attempt relaxed parsing or substring search
     const firstBrace = target.indexOf('{');
     const lastBrace = target.lastIndexOf('}');
     if (firstBrace !== -1 && lastBrace !== -1) {
       try {
         return JSON.parse(target.substring(firstBrace, lastBrace + 1));
-      } catch (nestedErr) {
+      } catch {
         // Fall through
       }
     }
@@ -129,7 +129,7 @@ function extractJsonFromResponse(text) {
     if (firstBracket !== -1 && lastBracket !== -1) {
       try {
         return JSON.parse(target.substring(firstBracket, lastBracket + 1));
-      } catch (nestedErr) {
+      } catch {
         // Fall through
       }
     }
@@ -278,8 +278,12 @@ export async function askPlannerCopilot({ message, history = [], eventState, per
 - Date: ${eventState?.date || 'Upcoming'}
 - Theme: ${eventState?.themeTitle || 'Classic Elegance'}`;
 
+  const formattedHistory = Array.isArray(history) && history.length > 0
+    ? `\nPrior Chat History:\n${history.slice(-4).map((h) => `${h.sender === 'user' ? 'User' : 'Copilot'}: ${h.text}`).join('\n')}\n`
+    : '';
+
   const systemInstruction = `${personaInstruction}
-${eventContext}
+${eventContext}${formattedHistory}
 Always give actionable, inspiring, and concise advice. If the user asks for budget savings, timeline adjustments, vendor advice, or theme ideas, provide concrete recommendations formatted with bullet points.`;
 
   if (!hasLiveApiKey()) {

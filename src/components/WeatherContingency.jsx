@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import {
   CloudRain,
-  Sun,
   Wind,
   Flame,
-  AlertTriangle,
-  CheckCircle2,
   Sparkles,
   ShieldAlert,
 } from 'lucide-react';

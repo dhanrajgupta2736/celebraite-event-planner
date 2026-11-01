@@ -49,7 +49,12 @@ export function cleanForPrompt(input) {
   if (typeof input !== 'string') return '';
   return input
     .replace(/<[^>]*>?/gm, '')
-    .replace(/[\u0000-\u0008\u000B-\u000C\u000E-\u001F]/g, '') // remove control chars
+    .split('')
+    .filter((ch) => {
+      const code = ch.charCodeAt(0);
+      return (code >= 32 && code !== 127) || code === 9 || code === 10 || code === 13;
+    })
+    .join('')
     .trim();
 }
 
@@ -116,3 +121,45 @@ class RateLimiter {
 }
 
 export const aiRateLimiter = new RateLimiter(20, 60000);
+
+/**
+ * Deeply sanitizes an object, stripping prototype pollution vectors and escaping HTML strings.
+ * @param {unknown} data - Untrusted data structure
+ * @returns {unknown} - Deeply sanitized structure
+ */
+export function sanitizeObject(data) {
+  if (data === null || data === undefined) return data;
+  if (typeof data === 'string') return sanitizeInput(data);
+  if (typeof data !== 'object') return data;
+  if (Array.isArray(data)) return data.map(sanitizeObject);
+
+  const clean = {};
+  for (const [key, value] of Object.entries(data)) {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+      continue; // neutralize prototype pollution
+    }
+    clean[key] = sanitizeObject(value);
+  }
+  return clean;
+}
+
+/**
+ * Strict validator for imported event dossiers.
+ * @param {unknown} event - Untrusted event object
+ * @returns {{ valid: boolean, reason?: string }}
+ */
+export function validateEventSchema(event) {
+  if (!event || typeof event !== 'object' || Array.isArray(event)) {
+    return { valid: false, reason: 'Event payload must be a non-null object' };
+  }
+  if (!event.id || typeof event.id !== 'string') {
+    return { valid: false, reason: 'Missing or invalid event id' };
+  }
+  if (!event.title || typeof event.title !== 'string') {
+    return { valid: false, reason: 'Missing or invalid event title' };
+  }
+  if (typeof event.budget !== 'number' || Number.isNaN(event.budget) || event.budget < 0) {
+    return { valid: false, reason: 'Event budget must be a positive number' };
+  }
+  return { valid: true };
+}

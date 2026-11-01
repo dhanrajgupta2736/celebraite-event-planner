@@ -1,10 +1,12 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import {
   sanitizeInput,
   cleanForPrompt,
   evaluatePromptSafety,
   isValidGeminiKey,
   aiRateLimiter,
+  sanitizeObject,
+  validateEventSchema,
 } from '../src/services/securityGuard.js';
 
 describe('Security & Prompt Injection Guardrails', () => {
@@ -58,5 +60,24 @@ describe('Security & Prompt Injection Guardrails', () => {
     }
     // Limit is configured to 20 calls per minute
     expect(allowedCount).toBeLessThanOrEqual(20);
+  });
+
+  it('strips control characters cleanly using cleanForPrompt', () => {
+    const dirty = 'Hello\u0000World\u0007!';
+    expect(cleanForPrompt(dirty)).toBe('HelloWorld!');
+  });
+
+  it('prevents prototype pollution in sanitizeObject', () => {
+    const maliciousPayload = JSON.parse('{"title":"Gala","__proto__":{"isAdmin":true}}');
+    const safe = sanitizeObject(maliciousPayload);
+    expect(safe.title).toBe('Gala');
+    expect(Object.prototype.isAdmin).toBeUndefined();
+  });
+
+  it('validates event schema correctly', () => {
+    expect(validateEventSchema({ id: 'evt-1', title: 'Wedding', budget: 5000 }).valid).toBe(true);
+    expect(validateEventSchema(null).valid).toBe(false);
+    expect(validateEventSchema({ id: 'evt-1' }).valid).toBe(false);
+    expect(validateEventSchema({ id: 'evt-1', title: 'Test', budget: -10 }).valid).toBe(false);
   });
 });

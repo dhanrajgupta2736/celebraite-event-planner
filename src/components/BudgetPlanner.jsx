@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
 import {
   DollarSign,
-  TrendingDown,
-  TrendingUp,
-  AlertCircle,
   PlusCircle,
   Sparkles,
-  CheckCircle2,
   Trash2,
-  HelpCircle,
   RotateCcw,
 } from 'lucide-react';
 import { calculateBudgetBreakdown } from '../services/fallbackEngine';
 import { formatCurrency } from '../services/currencyEngine';
 
-export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot, currency = 'USD' }) {
+export default function BudgetPlanner({ event, onUpdateEvent, _onOpenCopilot, currency = 'USD' }) {
   const [budgetItems, setBudgetItems] = useState(event.budgetItems || []);
-  const [totalBudget, setTotalBudget] = useState(event.budget || 15000);
-  const [guestCount, setGuestCount] = useState(event.guestCount || 100);
+  const totalBudget = event.budget || 15000;
+  const guestCount = event.guestCount || 100;
   const [showAddModal, setShowAddModal] = useState(false);
   const [aiSuggestions, setAiSuggestions] = useState(null);
   const [isOptimizing, setIsOptimizing] = useState(false);
@@ -35,7 +30,6 @@ export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot, cur
   const totalAllocated = budgetItems.reduce((acc, i) => acc + (Number(i.allocatedAmount) || 0), 0);
   const totalSpent = budgetItems.reduce((acc, i) => acc + (Number(i.actualSpent) || 0), 0);
   const remainingBudget = totalBudget - totalSpent;
-  const varianceTotal = totalBudget - totalAllocated;
 
   // Handle actual spent change
   const handleSpentChange = (id, newSpent) => {
@@ -309,17 +303,15 @@ export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot, cur
             </tr>
           </thead>
           <tbody>
-            {budgetItems.map((item) => {
-              const variance = item.allocatedAmount - item.actualSpent;
-              return (
-                <tr
-                  key={item.id}
-                  style={{
-                    borderBottom: '1px solid var(--border-subtle)',
-                    fontSize: '0.92rem',
-                    transition: 'background var(--transition-fast)',
-                  }}
-                >
+            {budgetItems.map((item) => (
+              <tr
+                key={item.id}
+                style={{
+                  borderBottom: '1px solid var(--border-subtle)',
+                  fontSize: '0.92rem',
+                  transition: 'background var(--transition-fast)',
+                }}
+              >
                   {/* Category Name & Note */}
                   <td style={{ padding: '0.9rem 1rem' }}>
                     <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{item.category}</div>
@@ -408,8 +400,7 @@ export default function BudgetPlanner({ event, onUpdateEvent, onOpenCopilot, cur
                     </button>
                   </td>
                 </tr>
-              );
-            })}
+            ))}
           </tbody>
         </table>
       </div>

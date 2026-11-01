@@ -1,10 +1,16 @@
 # ✨ CelebrAIte PRO — Autonomous GenAI Celebration & Event Planner
 
+[![CI](https://github.com/dhanrajgupta2736/celebraite-event-planner/actions/workflows/ci.yml/badge.svg)](https://github.com/dhanrajgupta2736/celebraite-event-planner/actions)
+[![Tests](https://img.shields.io/badge/Tests-48%20Passed%20(100%25)-success)](https://github.com/dhanrajgupta2736/celebraite-event-planner)
+[![Linter](https://img.shields.io/badge/Oxlint-0%20Warnings-brightgreen)](https://github.com/dhanrajgupta2736/celebraite-event-planner)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![WCAG](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA-gold)](https://github.com/dhanrajgupta2736/celebraite-event-planner)
+
 > **PromptWars Virtual — Challenge 5 Submission (Elite Track)**  
 > **Track / Vertical:** Celebration & Event Planner (Weddings, Birthdays & Community Events)  
 > **Author:** Dhanraj Gupta  
 > **AI Architecture:** Google Gemini 3.8 Flash (Interactions & Content Generation API) + Deterministic Fallback Engine  
-> **Test Coverage:** 32 Passing Tests across 8 Test Suites (100% Pass Rate)
+> **Test Coverage:** 48 Passing Tests across 11 Test Suites (100% Pass Rate) | 0 Lint Warnings | Production ErrorBoundary
 
 ---
 
